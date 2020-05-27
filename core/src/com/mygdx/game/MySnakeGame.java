@@ -39,28 +39,44 @@ public class MySnakeGame extends ApplicationAdapter {
 
 			@Override
 			public boolean keyDown(int keycode) {
+				if (currentScreen == Screen.MAIN_GAME) {
 
-				if (!directionChange) {
-					if (keycode == Input.Keys.DOWN) {
+					if (!directionChange) {
+						if (keycode == Input.Keys.DOWN) {
 
-						game.getSnake().changeDirection(Direction.DOWN);
-					} else if (keycode == Input.Keys.UP) {
-						game.getSnake().changeDirection(Direction.UP);
-					} else if (keycode == Input.Keys.LEFT) {
-						game.getSnake().changeDirection(Direction.LEFT);
-					} else if (keycode == Input.Keys.RIGHT) {
-						game.getSnake().changeDirection(Direction.RIGHT);
+							game.getSnake().changeDirection(Direction.DOWN);
+						} else if (keycode == Input.Keys.UP) {
+							game.getSnake().changeDirection(Direction.UP);
+						} else if (keycode == Input.Keys.LEFT) {
+							game.getSnake().changeDirection(Direction.LEFT);
+						} else if (keycode == Input.Keys.RIGHT) {
+							game.getSnake().changeDirection(Direction.RIGHT);
+						}
+						directionChange = true;
 					}
-					directionChange = true;
-				}
 
-				return true;
+					return true;
+				} else if (currentScreen == Screen.GAME_OVER) {
+					game.feldInit();
+					currentScreen = Screen.TITLE;
+					return true;
+				}else {
+					return false;
+				}
 			}
 
 			@Override
-            public boolean touchDown (int x, int y, int pointer, int button) {
-				if (x >= screenWidth / 2 - 50 && x <= screenWidth / 2 + 50
-						&& screenHeight - y >= screenHeight / 2 && screenHeight - y <= screenHeight / 2 + 30) {
+			public boolean touchDown(int x, int y, int pointer, int button) {
+				if (currentScreen == Screen.GAME_OVER) {
+					game.feldInit();
+					currentScreen = Screen.TITLE;
+					return true;
+				}
+				if (currentScreen != Screen.TITLE) {
+					return false;
+				}
+				if (x >= screenWidth / 2 - 50 && x <= screenWidth / 2 + 50 && screenHeight - y >= screenHeight / 2
+						&& screenHeight - y <= screenHeight / 2 + 30) {
 					difficulty = 300;
 					currentScreen = Screen.MAIN_GAME;
 				} else if (x >= screenWidth / 2 - 50 && x <= screenWidth / 2 + 50
@@ -107,8 +123,8 @@ public class MySnakeGame extends ApplicationAdapter {
 					} else {
 						shapeRenderer.setColor(0, 0, 0, 0);
 					}
-						shapeRenderer.rect(j * blockWidth + 2, i * blockHeight + 2, blockWidth - 3, blockHeight - 3);
-					}
+					shapeRenderer.rect(j * blockWidth + 2, i * blockHeight + 2, blockWidth - 3, blockHeight - 3);
+				}
 			}
 
 			shapeRenderer.end();

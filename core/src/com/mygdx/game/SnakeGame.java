@@ -7,13 +7,14 @@ public class SnakeGame {
 	int feldHoehe = 24;
 	int feldBreite = 32;
 	private Block[][] feld = new Block[feldHoehe][feldBreite];
-	private Snake snake = new Snake(Direction.LEFT);
+	private Snake snake;
 
 	public Snake getSnake() {
 		return snake;
 	}
 
 	public void feldInit() {
+		snake = new Snake(Direction.LEFT);
 		for (int x = 0; x < feldHoehe; x++) {
 			for (int y = 0; y < feldBreite; y++) {
 				feld[x][y] = new Block(x, y);
