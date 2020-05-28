@@ -19,9 +19,11 @@ public class MySnakeGame extends ApplicationAdapter {
 	int blockHeight;
 	int screenWidth;
 	int screenHeight;
-	int difficulty = 400;
+	int speed = 400;
+	Difficulty difficulty;
 	Screen currentScreen = Screen.TITLE;
 	boolean directionChange = false;
+	boolean near100 = false;
 
 	@Override
 	public void create() {
@@ -60,7 +62,7 @@ public class MySnakeGame extends ApplicationAdapter {
 					game.feldInit();
 					currentScreen = Screen.TITLE;
 					return true;
-				}else {
+				} else {
 					return false;
 				}
 			}
@@ -77,17 +79,18 @@ public class MySnakeGame extends ApplicationAdapter {
 				}
 				if (x >= screenWidth / 2 - 50 && x <= screenWidth / 2 + 50 && screenHeight - y >= screenHeight / 2
 						&& screenHeight - y <= screenHeight / 2 + 30) {
-					difficulty = 300;
 					currentScreen = Screen.MAIN_GAME;
+					difficulty = Difficulty.MEDIUM;
 				} else if (x >= screenWidth / 2 - 50 && x <= screenWidth / 2 + 50
 						&& screenHeight - y >= screenHeight / 2 + 40 && screenHeight - y <= screenHeight / 2 + 70) {
-					difficulty = 400;
 					currentScreen = Screen.MAIN_GAME;
+					difficulty = Difficulty.EASY;
 				} else if (x >= screenWidth / 2 - 50 && x <= screenWidth / 2 + 50
 						&& screenHeight - y >= screenHeight / 2 - 40 && screenHeight - y <= screenHeight / 2 - 10) {
-					difficulty = 250;
 					currentScreen = Screen.MAIN_GAME;
+					difficulty = Difficulty.HARD;
 				}
+				speed = difficulty.getStartSpeed();
 				return true;
 			}
 		});
@@ -98,9 +101,16 @@ public class MySnakeGame extends ApplicationAdapter {
 	public void render() {
 		if (currentScreen == Screen.MAIN_GAME) {
 			try {
-				Thread.sleep(difficulty);
+				speed = difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2)*15);
+				if (near100) {
+					speed = 100;
+				}
+				Thread.sleep(speed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			}
+			if(difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2)*50) < 100) {
+				near100 = true;
 			}
 			Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
