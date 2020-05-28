@@ -45,6 +45,7 @@ public class SnakeGame {
 
 		Block head = snake.getHead();
 		Block newHead;
+		Block tail = snake.getTail();
 		int xPos = head.getPosX();
 		int yPos = head.getPosY();
 		try {
@@ -67,12 +68,12 @@ public class SnakeGame {
 		} catch (ArrayIndexOutOfBoundsException ex) {
 			return Screen.GAME_OVER;
 		}
-		if (newHead.isBesetzt()) {
+		if (newHead.isBesetzt() && !newHead.equals(tail)) {
 			return Screen.GAME_OVER;
 		}
 		if (!newHead.isApfel()) {
-			snake.setHead(newHead);
 			snake.deleteTail();
+			snake.setHead(newHead);
 		} else {
 			snake.setHead(newHead);
 			setApfel();

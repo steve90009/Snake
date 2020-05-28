@@ -38,6 +38,9 @@ public class Snake {
 		Block tail = place.removeLast();
 		tail.setBesetzt(false);
 	}
+	public Block getTail() {
+		return place.getLast();
+	}
 	public int getLength() {
 		return place.size();
 	}

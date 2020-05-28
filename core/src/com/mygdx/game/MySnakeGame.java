@@ -23,7 +23,6 @@ public class MySnakeGame extends ApplicationAdapter {
 	Difficulty difficulty;
 	Screen currentScreen = Screen.TITLE;
 	boolean directionChange = false;
-	boolean near100 = false;
 
 	@Override
 	public void create() {
@@ -92,7 +91,6 @@ public class MySnakeGame extends ApplicationAdapter {
 				} else {
 					return false;
 				}
-				near100 = false;
 				speed = difficulty.getStartSpeed();
 				return true;
 			}
@@ -104,16 +102,13 @@ public class MySnakeGame extends ApplicationAdapter {
 	public void render() {
 		if (currentScreen == Screen.MAIN_GAME) {
 			try {
-				speed = difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2)*15);
-				if (near100) {
+				speed = difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2) * 15);
+				if (speed < 100) {
 					speed = 100;
 				}
 				Thread.sleep(speed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
-			if(difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2)*15) < 100) {
-				near100 = true;
 			}
 			Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
