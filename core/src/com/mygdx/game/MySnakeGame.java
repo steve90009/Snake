@@ -89,7 +89,10 @@ public class MySnakeGame extends ApplicationAdapter {
 						&& screenHeight - y >= screenHeight / 2 - 40 && screenHeight - y <= screenHeight / 2 - 10) {
 					currentScreen = Screen.MAIN_GAME;
 					difficulty = Difficulty.HARD;
+				} else {
+					return false;
 				}
+				near100 = false;
 				speed = difficulty.getStartSpeed();
 				return true;
 			}
@@ -109,7 +112,7 @@ public class MySnakeGame extends ApplicationAdapter {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2)*50) < 100) {
+			if(difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2)*15) < 100) {
 				near100 = true;
 			}
 			Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0);

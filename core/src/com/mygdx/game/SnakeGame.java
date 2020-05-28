@@ -71,12 +71,13 @@ public class SnakeGame {
 			return Screen.GAME_OVER;
 		}
 		if (!newHead.isApfel()) {
+			snake.setHead(newHead);
 			snake.deleteTail();
 		} else {
-			newHead.setApfel(false);
+			snake.setHead(newHead);
 			setApfel();
+			newHead.setApfel(false);
 		}
-		snake.setHead(newHead);
 		return Screen.MAIN_GAME;
 	}
 }
