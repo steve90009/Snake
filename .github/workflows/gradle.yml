@@ -26,5 +26,5 @@ jobs:
       run: ./gradlew build
     - name: Dist with Gradle
       run: ./gradlew dist
-    - name: Publish with Gradle
-      run: ./gradlew publish
+#    - name: Publish with Gradle
+#      run: ./gradlew publish
