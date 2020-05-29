@@ -25,7 +25,7 @@ publishing {
     mavenJava(MavenPublication) {
         groupId = 'com.mygdx.game'
         artifactId = 'snake'
-        version = '1.0'
+        version = '1.0.1'
         from components.java
     }
   }
