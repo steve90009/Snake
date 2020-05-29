@@ -16,6 +16,7 @@ buildscript {
 }
 
 plugins {
+	id 'java'
 	id 'java-library'
     id 'maven-publish'
 }
@@ -26,9 +27,9 @@ publishing {
     mavenJava(MavenPublication) {
         groupId = 'com.mygdx.game'
         artifactId = 'snake'
-        version = '1.0.4'
-        from components.java
-        artifact 'desktop-1.0.4.jar'
+        version = '1.0.5'
+      //  from components.java
+        artifact 'desktop-1.0.jar'
     }
   }
   repositories {
@@ -43,10 +44,18 @@ publishing {
   }
 }
 
+task copyJars(type: Copy) {
+	
+    from 'desktop/build/libs'
+    into './'
+}
+
+publish.dependsOn(copyJars)
+
 allprojects {
     apply plugin: "eclipse"
 
-    version = '1.0.4'
+    version = '1.0'
     ext {
         appName = "my-gdx-game"
         gdxVersion = '1.9.10'
