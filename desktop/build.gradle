@@ -48,8 +48,8 @@ publishing {
     mavenJava(MavenPublication) {
         groupId = 'com.mygdx.game'
         artifactId = 'snake'
-        version = '1.0.1'
-        from components.java
+        version = '1.0'
+       // from components.java
         artifact dist
     }
   }
