@@ -48,7 +48,7 @@ publishing {
     mavenJava(MavenPublication) {
         groupId = 'com.mygdx.game'
         artifactId = 'snake'
-        version = '1.0.2'
+        version = '1.0.3'
         from components.java
         artifact(dist) {
         // These values will be used instead of the values from the task. The task values will not be updated.
