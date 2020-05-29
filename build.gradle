@@ -15,15 +15,18 @@ buildscript {
     }
 }
 plugins {
+	id 'java-library'
     id 'maven-publish'
 }
 
+
 publishing {
   publications {
-    maven(MavenPublication) {
+    mavenJava(MavenPublication) {
         groupId = 'com.mygdx.game'
         artifactId = 'snake'
         version = '1.0'
+        from components.java
     }
   }
   repositories {
