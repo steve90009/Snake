@@ -21,12 +21,32 @@ plugins {
 }
 
 
-
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+        groupId = 'com.mygdx.game'
+        artifactId = 'snake'
+        version = '1.0.4'
+        from components.java
+        artifact 'desktop-1.0.4.jar'
+    }
+  }
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/steve90009/snake"
+      credentials {
+      	username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      } 
+    }
+  }
+}
 
 allprojects {
     apply plugin: "eclipse"
 
-    version = '1.0'
+    version = '1.0.4'
     ext {
         appName = "my-gdx-game"
         gdxVersion = '1.9.10'

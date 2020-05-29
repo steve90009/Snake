@@ -1,9 +1,5 @@
-//apply plugin: "java"
-plugins {
-	id 'java'
-	id 'java-library'
-    id 'maven-publish'
-}
+apply plugin: "java"
+
 
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
@@ -43,31 +39,7 @@ task dist(type: Jar) {
     with jar
 }
 
-publishing {
-  publications {
-    mavenJava(MavenPublication) {
-        groupId = 'com.mygdx.game'
-        artifactId = 'snake'
-        version = '1.0.3'
-        from components.java
-        artifact(dist) {
-        // These values will be used instead of the values from the task. The task values will not be updated.
-        classifier "run"
-        extension "jar"
-      }
-    }
-  }
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = "https://maven.pkg.github.com/steve90009/snake"
-      credentials {
-      	username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
-      } 
-    }
-  }
-}
+
 
 
 
