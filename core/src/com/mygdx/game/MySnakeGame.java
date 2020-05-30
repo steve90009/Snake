@@ -23,6 +23,7 @@ public class MySnakeGame extends ApplicationAdapter {
 	Difficulty difficulty;
 	Screen currentScreen = Screen.TITLE;
 	boolean directionChange = false;
+	private boolean paused = false;
 
 	@Override
 	public void create() {
@@ -40,9 +41,19 @@ public class MySnakeGame extends ApplicationAdapter {
 
 			@Override
 			public boolean keyDown(int keycode) {
+				if (keycode == Input.Keys.ESCAPE) {
+					if (currentScreen == Screen.TITLE) {
+						dispose();
+						System.exit(0);
+					}else {
+						currentScreen = Screen.TITLE;
+					}
+				}
 				if (currentScreen == Screen.MAIN_GAME) {
-
-					if (!directionChange) {
+					if (keycode == Input.Keys.SPACE) {
+						paused = !paused;
+					}
+					if (!directionChange && !paused) {
 						if (keycode == Input.Keys.DOWN) {
 
 							game.getSnake().changeDirection(Direction.DOWN);
@@ -58,7 +69,6 @@ public class MySnakeGame extends ApplicationAdapter {
 
 					return true;
 				} else if (currentScreen == Screen.GAME_OVER) {
-					game.feldInit();
 					currentScreen = Screen.TITLE;
 					return true;
 				} else {
@@ -92,6 +102,7 @@ public class MySnakeGame extends ApplicationAdapter {
 					return false;
 				}
 				speed = difficulty.getStartSpeed();
+				game.feldInit();
 				return true;
 			}
 		});
@@ -106,13 +117,18 @@ public class MySnakeGame extends ApplicationAdapter {
 				if (speed < 100) {
 					speed = 100;
 				}
-				Thread.sleep(speed);
+				if (!paused) {
+					Thread.sleep(speed);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			currentScreen = game.snakeMove();
+			if (!paused) {
+				currentScreen = game.snakeMove();
+			}
+
 			directionChange = false;
 
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
