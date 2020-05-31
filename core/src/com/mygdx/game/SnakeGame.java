@@ -41,7 +41,7 @@ public class SnakeGame {
 		return feld;
 	}
 
-	public Screen snakeMove() {
+	public boolean snakeMove() {
 
 		Block head = snake.getHead();
 		Block newHead;
@@ -66,10 +66,10 @@ public class SnakeGame {
 				newHead = head;
 			}
 		} catch (ArrayIndexOutOfBoundsException ex) {
-			return Screen.GAME_OVER;
+			return false;
 		}
 		if (newHead.isBesetzt() && !newHead.equals(tail)) {
-			return Screen.GAME_OVER;
+			return false;
 		}
 		if (!newHead.isApfel()) {
 			snake.deleteTail();
@@ -79,6 +79,6 @@ public class SnakeGame {
 			setApfel();
 			newHead.setApfel(false);
 		}
-		return Screen.MAIN_GAME;
+		return true;
 	}
 }
