@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class MySnakeGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -24,6 +25,7 @@ public class MySnakeGame extends ApplicationAdapter {
 	Screen currentScreen = Screen.TITLE;
 	boolean directionChange = false;
 	private boolean paused = false;
+	long startTime = 0L;
 
 	@Override
 	public void create() {
@@ -36,7 +38,6 @@ public class MySnakeGame extends ApplicationAdapter {
 		screenHeight = Gdx.graphics.getHeight();
 		blockWidth = screenWidth / game.getFeld()[0].length;
 		blockHeight = screenHeight / game.getFeld().length;
-
 		Gdx.input.setInputProcessor(new InputAdapter() {
 
 			@Override
@@ -45,7 +46,7 @@ public class MySnakeGame extends ApplicationAdapter {
 					if (currentScreen == Screen.TITLE) {
 						dispose();
 						System.exit(0);
-					}else {
+					} else {
 						currentScreen = Screen.TITLE;
 					}
 				}
@@ -101,6 +102,7 @@ public class MySnakeGame extends ApplicationAdapter {
 				} else {
 					return false;
 				}
+				startTime = TimeUtils.millis();
 				speed = difficulty.getStartSpeed();
 				game.feldInit();
 				return true;
@@ -112,24 +114,18 @@ public class MySnakeGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 		if (currentScreen == Screen.MAIN_GAME) {
-			try {
-				speed = difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2) * 15);
-				if (speed < 100) {
-					speed = 100;
-				}
-				if (!paused) {
-					Thread.sleep(speed);
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			speed = difficulty.getStartSpeed() - ((game.getSnake().getLength() - 2) * 15);
+			if (speed < 100) {
+				speed = 100;
 			}
 			Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			if (!paused) {
-				currentScreen = game.snakeMove();
-			}
 
-			directionChange = false;
+			if (!paused && TimeUtils.timeSinceMillis(startTime) > speed) {
+				currentScreen = game.snakeMove();
+				startTime = TimeUtils.millis();
+				directionChange = false;
+			}
 
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 			for (int i = 0; i < game.getFeld().length; i++) {
