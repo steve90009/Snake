@@ -30,13 +30,15 @@ public class MainScreen extends ScreenAdapter {
 		}
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		boolean isOk = true;
+		MoveResult moveResult = MoveResult.NONE;
 		if (!paused && TimeUtils.timeSinceMillis(startTime) > myGame.speed) {
-			isOk = myGame.game.snakeMove();
+			moveResult = myGame.game.snakeMove();
 			startTime = TimeUtils.millis();
 			directionChange = false;
 		}
-
+		if (moveResult == MoveResult.APPLE) {
+			myGame.sound.play();
+		}
 		myGame.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		for (int i = 0; i < myGame.game.getFeld().length; i++) {
 			Block[] zeile = myGame.game.getFeld()[i];
@@ -65,7 +67,7 @@ public class MainScreen extends ScreenAdapter {
 		myGame.font.draw(myGame.batch, "Score: " + (myGame.game.getSnake().getLength() - 2), 10,
 				myGame.screenHeight - 10);
 		myGame.batch.end();
-		if (!isOk) {
+		if (moveResult == MoveResult.GAMEOVER) {
 			myGame.setScreen(new GameOverScreen(myGame));
 		}
 	}
@@ -107,5 +109,6 @@ public class MainScreen extends ScreenAdapter {
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 	}
+
 
 }
