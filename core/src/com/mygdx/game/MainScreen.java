@@ -36,7 +36,7 @@ public class MainScreen extends ScreenAdapter {
 			startTime = TimeUtils.millis();
 			directionChange = false;
 		}
-		if (moveResult == MoveResult.APPLE) {
+		if (moveResult == MoveResult.APPLE && myGame.saves.isSound()) {
 			myGame.sound.play();
 		}
 		myGame.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

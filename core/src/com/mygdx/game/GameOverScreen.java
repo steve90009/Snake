@@ -18,14 +18,17 @@ public class GameOverScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		myGame.batch.begin();
 		myGame.font.draw(myGame.batch, "Game Over", myGame.screenWidth / 2 - 25, myGame.screenHeight / 2);
-		myGame.font.draw(myGame.batch, "Score: " + (myGame.game.getSnake().getLength() - 2), 10, myGame.screenHeight - 10);
+		myGame.font.draw(myGame.batch, "Score: " + (myGame.game.getSnake().getLength() - 2), 10,
+				myGame.screenHeight - 10);
 		myGame.batch.end();
 	}
 
 	@Override
 	public void show() {
 		myGame.saves.setHighScore(myGame.game.getSnake().getLength() - 2);
-		myGame.goSound.play();
+		if (myGame.saves.isSound()) {
+			myGame.goSound.play();
+		}
 		Gdx.input.setInputProcessor(new InputAdapter() {
 			@Override
 			public boolean touchDown(int x, int y, int pointer, int button) {

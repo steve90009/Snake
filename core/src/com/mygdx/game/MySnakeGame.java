@@ -44,12 +44,14 @@ public class MySnakeGame extends Game {
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		super.render();
-		batch.begin();
-		font.draw(batch, "High Score: " + saves.getHighScore(), screenWidth - 140, screenHeight - 10);
-		batch.end();
-		System.out.println(Gdx.graphics.getFramesPerSecond());
+		if (!(getScreen() instanceof SettingsScreen)) {
+
+			batch.begin();
+			font.draw(batch, "High Score: " + saves.getHighScore(), screenWidth - 140, screenHeight - 10);
+			batch.end();
+		}
 	}
 
 	@Override
