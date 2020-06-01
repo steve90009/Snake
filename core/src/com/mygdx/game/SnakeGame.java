@@ -3,7 +3,7 @@ package com.mygdx.game;
 import java.util.Random;
 
 public class SnakeGame {
-
+	// 12*16
 	int feldHoehe = 24;
 	int feldBreite = 32;
 	private Block[][] feld = new Block[feldHoehe][feldBreite];

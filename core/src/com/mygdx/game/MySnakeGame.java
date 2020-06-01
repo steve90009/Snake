@@ -12,6 +12,7 @@ public class MySnakeGame extends Game {
 	ShapeRenderer shapeRenderer;
 	BitmapFont font;
 	SnakeGame game;
+	Saves saves;
 	int blockWidth;
 	int blockHeight;
 	int screenWidth;
@@ -21,6 +22,7 @@ public class MySnakeGame extends Game {
 	boolean directionChange = false;
 	boolean paused = false;
 	long startTime = 0L;
+	Sound goSound;
 	Sound sound;
 
 	@Override
@@ -28,7 +30,10 @@ public class MySnakeGame extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		game = new SnakeGame();
+		saves = new Saves();
+		saves.load();
 		sound = Gdx.audio.newSound(Gdx.files.internal("apple_sound.mp3"));
+		goSound = Gdx.audio.newSound(Gdx.files.internal("game_over.mp3"));
 		shapeRenderer = new ShapeRenderer();
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
@@ -39,7 +44,19 @@ public class MySnakeGame extends Game {
 	}
 
 	@Override
+	public void render () {
+		super.render();
+		batch.begin();
+		font.draw(batch, "High Score: " + saves.getHighScore(), screenWidth - 140, screenHeight - 10);
+		batch.end();
+		System.out.println(Gdx.graphics.getFramesPerSecond());
+	}
+
+	@Override
 	public void dispose() {
+		saves.save();
+		sound.dispose();
+		goSound.dispose();
 		batch.dispose();
 		shapeRenderer.dispose();
 		font.dispose();
