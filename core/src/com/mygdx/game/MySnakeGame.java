@@ -51,6 +51,7 @@ public class MySnakeGame extends Game {
 			batch.begin();
 			font.draw(batch, "High Score: " + saves.getHighScore(), screenWidth - 140, screenHeight - 10);
 			batch.end();
+			System.out.println(Gdx.graphics.getFramesPerSecond());
 		}
 	}
 

@@ -7,6 +7,9 @@ import com.mygdx.game.MySnakeGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.resizable = false;
+		config.backgroundFPS = -1;
+//		config.pauseWhenMinimized = true;
 		new LwjglApplication(new MySnakeGame(), config);
 	}
 }
