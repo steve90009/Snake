@@ -23,6 +23,7 @@ public class Snake {
 			direction = newDirection;
 		}
 	}
+
 	public Direction getDirection() {
 		return direction;
 	}
@@ -30,17 +31,21 @@ public class Snake {
 	public Block getHead() {
 		return place.getFirst();
 	}
+
 	public void setHead(Block newHead) {
 		place.addFirst(newHead);
 		newHead.setBesetzt(true);
 	}
+
 	public void deleteTail() {
 		Block tail = place.removeLast();
 		tail.setBesetzt(false);
 	}
+
 	public Block getTail() {
 		return place.getLast();
 	}
+
 	public int getLength() {
 		return place.size();
 	}

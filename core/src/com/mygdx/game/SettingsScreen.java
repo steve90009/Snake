@@ -27,10 +27,17 @@ public class SettingsScreen extends ScreenAdapter {
 			myGame.shapeRenderer.setColor(Color.RED);
 		}
 		myGame.shapeRenderer.rect(myGame.screenWidth - 150, myGame.screenHeight - 50, 100, 30);
+		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 90);
 		myGame.shapeRenderer.end();
 
 		myGame.batch.begin();
 		myGame.font.draw(myGame.batch, "Sounds", myGame.screenWidth - 225, myGame.screenHeight - 28);
+		myGame.font.draw(myGame.batch, "Field size", myGame.screenWidth - 225, myGame.screenHeight - 68);
+		if (myGame.saves.getFieldSize() == 1) {
+			myGame.font.draw(myGame.batch, "12*16", myGame.screenWidth - 120, myGame.screenHeight - 68);
+		} else {
+			myGame.font.draw(myGame.batch, "24*32", myGame.screenWidth - 120, myGame.screenHeight - 68);
+		}
 		myGame.batch.end();
 	}
 
@@ -42,7 +49,14 @@ public class SettingsScreen extends ScreenAdapter {
 //				myGame.setScreen(new TitleScreen(myGame));
 				if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 50)) {
 					myGame.saves.setSound(!myGame.saves.isSound());
+				} else if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 90)) {
+					if (myGame.saves.getFieldSize() == 1) {
+						myGame.saves.setFieldSize(2);
+					} else {
+						myGame.saves.setFieldSize(1);
+					}
 				}
+
 				return true;
 			}
 
@@ -53,6 +67,7 @@ public class SettingsScreen extends ScreenAdapter {
 				}
 				return true;
 			}
+
 		});
 	}
 
@@ -61,18 +76,19 @@ public class SettingsScreen extends ScreenAdapter {
 		Gdx.input.setInputProcessor(null);
 	}
 
-//	private void drawButton(int x, int y) {
-//		int mausX = Gdx.input.getX(0);
-//		int mausY = Gdx.input.getY(0);
-//
-//		if (mausX >= x && mausX <= x + 100 && myGame.screenHeight - mausY >= y
-//				&& myGame.screenHeight - mausY <= y + 30) {
-//			myGame.shapeRenderer.setColor(Color.GRAY);
-//		} else {
-//			myGame.shapeRenderer.setColor(Color.DARK_GRAY);
-//		}
-//		myGame.shapeRenderer.rect(x, y, 100, 30);
-//	}
+	private void drawButton(int x, int y) {
+		int mausX = Gdx.input.getX(0);
+		int mausY = Gdx.input.getY(0);
+
+		if (mausX >= x && mausX <= x + 100 && myGame.screenHeight - mausY >= y
+				&& myGame.screenHeight - mausY <= y + 30) {
+			myGame.shapeRenderer.setColor(Color.GRAY);
+		} else {
+			myGame.shapeRenderer.setColor(Color.DARK_GRAY);
+		}
+		myGame.shapeRenderer.rect(x, y, 100, 30);
+	}
+
 	private boolean activateButton(int x, int y, int buttonX, int buttonY) {
 		return x >= buttonX && x <= buttonX + 100 && myGame.screenHeight - y >= buttonY
 				&& myGame.screenHeight - y <= buttonY + 30;

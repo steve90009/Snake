@@ -37,8 +37,8 @@ public class MySnakeGame extends Game {
 		shapeRenderer = new ShapeRenderer();
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
-		blockWidth = screenWidth / game.getFeld()[0].length;
-		blockHeight = screenHeight / game.getFeld().length;
+//		blockWidth = screenWidth / game.getBreite();//Feld()[0].length;
+//		blockHeight = screenHeight / game.getHoehe();//Feld().length;
 		setScreen(new TitleScreen(this));
 
 	}
@@ -51,7 +51,6 @@ public class MySnakeGame extends Game {
 			batch.begin();
 			font.draw(batch, "High Score: " + saves.getHighScore(), screenWidth - 140, screenHeight - 10);
 			batch.end();
-			System.out.println(Gdx.graphics.getFramesPerSecond());
 		}
 	}
 

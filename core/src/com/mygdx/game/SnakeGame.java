@@ -4,23 +4,28 @@ import java.util.Random;
 
 public class SnakeGame {
 	// 12*16
-	int feldHoehe = 24;
-	int feldBreite = 32;
-	private Block[][] feld = new Block[feldHoehe][feldBreite];
+	int feldHoehe = 12;
+	int feldBreite = 16;
+	int size = 2;
+	private Block[][] feld;
 	private Snake snake;
 
 	public Snake getSnake() {
 		return snake;
 	}
 
-	public void feldInit() {
+	public void feldInit(int size) {
+		this.size = size;
 		snake = new Snake(Direction.LEFT);
-		for (int x = 0; x < feldHoehe; x++) {
-			for (int y = 0; y < feldBreite; y++) {
+		int hoehe = feldHoehe * size;
+		int breite = feldBreite * size;
+		feld = new Block[hoehe][breite];
+		for (int x = 0; x < hoehe; x++) {
+			for (int y = 0; y < breite; y++) {
 				feld[x][y] = new Block(x, y);
 			}
 		}
-		snake.snakeInit(feld[feldHoehe / 2][feldBreite / 2 - 1], feld[feldHoehe / 2][feldBreite / 2]);
+		snake.snakeInit(feld[hoehe / 2][breite / 2 - 1], feld[hoehe / 2][breite / 2]);
 		setApfel();
 	}
 
@@ -28,8 +33,8 @@ public class SnakeGame {
 		Random dice = new Random();
 		boolean besetzt = true;
 		while (besetzt) {
-			int x = dice.nextInt(feldHoehe);
-			int y = dice.nextInt(feldBreite);
+			int x = dice.nextInt(feldHoehe * size);
+			int y = dice.nextInt(feldBreite * size);
 			if (!feld[x][y].isBesetzt()) {
 				besetzt = false;
 				feld[x][y].setApfel(true);
@@ -81,5 +86,13 @@ public class SnakeGame {
 			return MoveResult.APPLE;
 		}
 		return MoveResult.NONE;
+	}
+
+	public int getHoehe() {
+		return feldHoehe * size;
+	}
+
+	public int getBreite() {
+		return feldBreite * size;
 	}
 }

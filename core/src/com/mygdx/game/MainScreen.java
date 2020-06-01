@@ -74,7 +74,9 @@ public class MainScreen extends ScreenAdapter {
 
 	@Override
 	public void show() {
-		myGame.game.feldInit();
+		myGame.game.feldInit(myGame.saves.getFieldSize());
+		myGame.blockWidth = myGame.screenWidth / myGame.game.getBreite();
+		myGame.blockHeight = myGame.screenHeight / myGame.game.getHoehe();
 
 		Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -109,6 +111,5 @@ public class MainScreen extends ScreenAdapter {
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 	}
-
 
 }
