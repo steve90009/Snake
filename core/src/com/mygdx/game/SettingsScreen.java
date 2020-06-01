@@ -29,7 +29,7 @@ public class SettingsScreen extends ScreenAdapter {
 		myGame.shapeRenderer.end();
 
 		myGame.batch.begin();
-		myGame.font.draw(myGame.batch, "Sounds", myGame.screenWidth - 125, myGame.screenHeight - 28);
+		myGame.font.draw(myGame.batch, "Sounds", myGame.screenWidth - 225, myGame.screenHeight - 28);
 		myGame.batch.end();
 	}
 
