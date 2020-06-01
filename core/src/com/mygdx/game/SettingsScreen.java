@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -22,7 +23,7 @@ public class SettingsScreen extends ScreenAdapter {
 		myGame.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		if (myGame.saves.isSound()) {
 			myGame.shapeRenderer.setColor(Color.GREEN);
-		}else {
+		} else {
 			myGame.shapeRenderer.setColor(Color.RED);
 		}
 		myGame.shapeRenderer.rect(myGame.screenWidth - 150, myGame.screenHeight - 50, 100, 30);
@@ -47,7 +48,9 @@ public class SettingsScreen extends ScreenAdapter {
 
 			@Override
 			public boolean keyDown(int keycode) {
-				myGame.setScreen(new TitleScreen(myGame));
+				if (keycode == Input.Keys.ESCAPE) {
+					myGame.setScreen(new TitleScreen(myGame));
+				}
 				return true;
 			}
 		});
@@ -57,6 +60,7 @@ public class SettingsScreen extends ScreenAdapter {
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 	}
+
 //	private void drawButton(int x, int y) {
 //		int mausX = Gdx.input.getX(0);
 //		int mausY = Gdx.input.getY(0);

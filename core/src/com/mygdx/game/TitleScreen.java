@@ -33,6 +33,7 @@ public class TitleScreen extends ScreenAdapter {
 		myGame.font.draw(myGame.batch, "MEDIUM", myGame.screenWidth / 2 - 30, myGame.screenHeight / 2 + 20);
 		myGame.font.draw(myGame.batch, "HARD", myGame.screenWidth / 2 - 20, myGame.screenHeight / 2 - 20);
 		myGame.font.draw(myGame.batch, "Settings", myGame.screenWidth / 2 - 25, myGame.screenHeight / 2 - 80);
+		myGame.font.draw(myGame.batch, "by Stefan", (myGame.screenWidth - myGame.screenWidth) + 5, (myGame.screenHeight - myGame.screenHeight) + 15);
 		myGame.batch.end();
 	}
 
