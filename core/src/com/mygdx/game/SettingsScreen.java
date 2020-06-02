@@ -11,6 +11,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class SettingsScreen extends ScreenAdapter {
 	MySnakeGame myGame;
 
+	boolean upAndern = false;
+	boolean downAndern = false;
+	boolean leftAndern = false;
+	boolean rightAndern = false;
+	boolean pauseAndern = false;
+
 	public SettingsScreen(MySnakeGame game) {
 		myGame = game;
 	}
@@ -28,6 +34,11 @@ public class SettingsScreen extends ScreenAdapter {
 		}
 		myGame.shapeRenderer.rect(myGame.screenWidth - 150, myGame.screenHeight - 50, 100, 30);
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 90);
+		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 130);
+		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 170);
+		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 210);
+		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 250);
+		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 290);
 		myGame.shapeRenderer.end();
 
 		myGame.batch.begin();
@@ -38,6 +49,21 @@ public class SettingsScreen extends ScreenAdapter {
 		} else {
 			myGame.font.draw(myGame.batch, "24*32", myGame.screenWidth - 120, myGame.screenHeight - 68);
 		}
+		myGame.font.draw(myGame.batch, Input.Keys.toString(myGame.saves.getUp()), myGame.screenWidth - 120, myGame.screenHeight - 108);
+		myGame.font.draw(myGame.batch, "Up", myGame.screenWidth - 225, myGame.screenHeight - 108);
+
+		myGame.font.draw(myGame.batch, Input.Keys.toString(myGame.saves.getDown()), myGame.screenWidth - 120,myGame.screenHeight - 148);
+		myGame.font.draw(myGame.batch, "Down", myGame.screenWidth - 225, myGame.screenHeight - 148);
+
+		myGame.font.draw(myGame.batch, Input.Keys.toString(myGame.saves.getLeft()), myGame.screenWidth - 120,myGame.screenHeight - 188);
+		myGame.font.draw(myGame.batch, "Left", myGame.screenWidth - 225, myGame.screenHeight - 188);
+
+		myGame.font.draw(myGame.batch, Input.Keys.toString(myGame.saves.getRight()), myGame.screenWidth - 120,myGame.screenHeight - 228);
+		myGame.font.draw(myGame.batch, "Right", myGame.screenWidth - 225, myGame.screenHeight - 228);
+
+		myGame.font.draw(myGame.batch, Input.Keys.toString(myGame.saves.getPause()), myGame.screenWidth - 120,myGame.screenHeight - 268);
+		myGame.font.draw(myGame.batch, "Pause", myGame.screenWidth - 225, myGame.screenHeight - 268);
+
 		myGame.batch.end();
 	}
 
@@ -56,6 +82,43 @@ public class SettingsScreen extends ScreenAdapter {
 						myGame.saves.setFieldSize(1);
 					}
 				}
+				if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 130)) {
+					upAndern = true;
+					pauseAndern = false;
+					downAndern = false;
+					leftAndern = false;
+					rightAndern = false;
+				} else if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 170)) {
+					downAndern = true;
+					pauseAndern = false;
+					upAndern = false;
+					leftAndern = false;
+					rightAndern = false;
+				} else if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 210)) {
+					leftAndern = true;
+					pauseAndern = false;
+					upAndern = false;
+					downAndern = false;
+					rightAndern = false;
+				} else if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 250)) {
+					rightAndern = true;
+					pauseAndern = false;
+					upAndern = false;
+					downAndern = false;
+					leftAndern = false;
+				} else if (activateButton(x, y, myGame.screenWidth - 150, myGame.screenHeight - 290)) {
+					pauseAndern = true;
+					upAndern = false;
+					downAndern = false;
+					leftAndern = false;
+					rightAndern = false;
+				} else {
+					pauseAndern = false;
+					upAndern = false;
+					downAndern = false;
+					leftAndern = false;
+					rightAndern = false;
+				}
 
 				return true;
 			}
@@ -64,6 +127,16 @@ public class SettingsScreen extends ScreenAdapter {
 			public boolean keyDown(int keycode) {
 				if (keycode == Input.Keys.ESCAPE) {
 					myGame.setScreen(new TitleScreen(myGame));
+				} else if (upAndern) {
+					myGame.saves.setUp(keycode);
+				} else if (downAndern) {
+					myGame.saves.setDown(keycode);
+				} else if (leftAndern) {
+					myGame.saves.setLeft(keycode);
+				} else if (rightAndern) {
+					myGame.saves.setRight(keycode);
+				} else if (pauseAndern) {
+					myGame.saves.setPause(keycode);
 				}
 				return true;
 			}

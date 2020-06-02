@@ -85,17 +85,17 @@ public class MainScreen extends ScreenAdapter {
 				if (keycode == Input.Keys.ESCAPE) {
 					myGame.setScreen(new TitleScreen(myGame));
 				}
-				if (keycode == Input.Keys.SPACE) {
+				if (keycode == myGame.saves.getPause()) {
 					paused = !paused;
 				}
 				if (!directionChange && !paused) {
-					if (keycode == Input.Keys.DOWN) {
-						myGame.game.getSnake().changeDirection(Direction.DOWN);
-					} else if (keycode == Input.Keys.UP) {
+					if (keycode == myGame.saves.getUp()) {
 						myGame.game.getSnake().changeDirection(Direction.UP);
-					} else if (keycode == Input.Keys.LEFT) {
+					} else if (keycode == myGame.saves.getDown()) {
+						myGame.game.getSnake().changeDirection(Direction.DOWN);
+					} else if (keycode == myGame.saves.getLeft()) {
 						myGame.game.getSnake().changeDirection(Direction.LEFT);
-					} else if (keycode == Input.Keys.RIGHT) {
+					} else if (keycode == myGame.saves.getRight()) {
 						myGame.game.getSnake().changeDirection(Direction.RIGHT);
 					}
 					directionChange = true;

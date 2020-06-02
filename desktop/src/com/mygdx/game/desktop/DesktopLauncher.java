@@ -9,7 +9,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.resizable = false;
 		config.backgroundFPS = -1;
-//		config.addIcon(path, fileType);
 		new LwjglApplication(new MySnakeGame(), config);
 	}
 }

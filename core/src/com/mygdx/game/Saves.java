@@ -10,6 +10,7 @@ public class Saves {
 	private int down = Input.Keys.DOWN;
 	private int left = Input.Keys.LEFT;
 	private int right = Input.Keys.RIGHT;
+	private int pause = Input.Keys.SPACE;
 
 	public boolean isSound() {
 		return sound;
@@ -71,5 +72,13 @@ public class Saves {
 	}
 
 	public void save() {
+	}
+
+	public int getPause() {
+		return pause;
+	}
+
+	public void setPause(int pause) {
+		this.pause = pause;
 	}
 }
