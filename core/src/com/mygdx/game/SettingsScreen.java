@@ -33,12 +33,26 @@ public class SettingsScreen extends ScreenAdapter {
 			myGame.shapeRenderer.setColor(Color.RED);
 		}
 		myGame.shapeRenderer.rect(myGame.screenWidth - 150, myGame.screenHeight - 50, 100, 30);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 50);
+
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 90);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 90);
+
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 130);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 130);
+
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 170);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 170);
+
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 210);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 210);
+
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 250);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 250);
+
 		drawButton(myGame.screenWidth - 150, myGame.screenHeight - 290);
+		drawButton((myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 290);
+
 		myGame.shapeRenderer.end();
 
 		myGame.batch.begin();
@@ -64,6 +78,7 @@ public class SettingsScreen extends ScreenAdapter {
 		myGame.font.draw(myGame.batch, Input.Keys.toString(myGame.saves.getPause()), myGame.screenWidth - 120,myGame.screenHeight - 268);
 		myGame.font.draw(myGame.batch, "Pause", myGame.screenWidth - 225, myGame.screenHeight - 268);
 
+		myGame.font.draw(myGame.batch, "Reset", (myGame.screenWidth - myGame.screenWidth) + 80, myGame.screenHeight - 308);
 		myGame.batch.end();
 	}
 
@@ -112,6 +127,20 @@ public class SettingsScreen extends ScreenAdapter {
 					downAndern = false;
 					leftAndern = false;
 					rightAndern = false;
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 50)) {
+					myGame.saves.setSound(true);
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 90)) {
+					myGame.saves.setFieldSize(2);
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 130)) {
+					myGame.saves.setUp(Input.Keys.UP);
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 170)) {
+					myGame.saves.setDown(Input.Keys.DOWN);
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 210)) {
+					myGame.saves.setLeft(Input.Keys.LEFT);
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 250)) {
+					myGame.saves.setRight(Input.Keys.RIGHT);
+				} else if (activateButton(x, y, (myGame.screenWidth - myGame.screenWidth) + 50, myGame.screenHeight - 290)) {
+					myGame.saves.setPause(Input.Keys.SPACE);
 				} else {
 					pauseAndern = false;
 					upAndern = false;
